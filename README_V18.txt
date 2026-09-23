@@ -1,0 +1,1 @@
+V18: corrigida a segunda abertura. Os dois vídeos agora ocupam o mesmo canvas em fullscreen com position:absolute; apenas um fica visível por vez. Ao terminar Intro.mp4, o primeiro é pausado/ocultado e Intro Proguinho começa no mesmo canvas, também em tela cheia. Não existe mais layout lado a lado.

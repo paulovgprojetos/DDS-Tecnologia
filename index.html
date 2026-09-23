@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#07111d">
+  <title>DDS Tecnologia: The Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Abertura -->
+  <section id="introScreen" class="intro-screen">
+    <video id="introVideo" class="intro-video intro-video-main" autoplay playsinline preload="auto">
+      <source src="imagens/intro.mp4" type="video/mp4">
+    </video>
+    <video id="introVideo2" class="intro-video intro-video-second intro-video-hidden" playsinline preload="auto">
+      <source src="imagens/intro-proguinho.mp4" type="video/mp4">
+    </video>
+    <div class="intro-vignette"></div>
+    <div class="intro-bar">
+      <div class="intro-title">DDS Tecnologia: The Game</div>
+      <div class="intro-actions">
+        <button id="introSoundBtn" class="glass-btn">🔊 Som</button>
+        <button id="skipIntroBtn" class="glass-btn primary">Pular abertura →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Configuração -->
+  <main id="setupScreen" class="screen hidden">
+    <div class="start-card">
+      <header class="brand-row">
+        <div>
+          <div class="game-title">DDS <span>Tecnologia</span><br><small>THE GAME</small></div>
+          <p>Conhecimento em movimento. Responda, avance e chegue primeiro ao final.</p>
+        </div>
+        <div class="brand-pill">2–8 JOGADORES • 48 CASAS</div>
+      </header>
+
+      <section class="setup-block">
+        <h2>1. Quantos jogadores?</h2>
+        <div id="playerCountGrid" class="count-grid"></div>
+      </section>
+
+      <section class="setup-block">
+        <h2>2. Escolha os personagens</h2>
+        <div id="characterGrid" class="character-grid"></div>
+        <p class="hint">Cada jogador usa um personagem diferente. O Proguinho é o mascote principal.</p>
+      </section>
+
+      <div class="setup-footer">
+        <div id="selectionStatus" class="selection-status">Escolha o número de jogadores.</div>
+        <button id="startGameBtn" class="primary-btn" disabled>COMEÇAR PARTIDA 🎲</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Jogo -->
+  <main id="gameScreen" class="game-screen hidden">
+    <div class="game-shell">
+      <header class="game-hud">
+        <div class="hud-box">
+          <span>Vez de</span>
+          <strong id="turnName">—</strong>
+        </div>
+        <div class="hud-brand">DDS <b>Tecnologia</b> • THE GAME</div>
+        <div class="hud-box controls-inline">
+          <button id="musicBtn" class="small-btn">🔊 Música</button>
+          <button id="restartBtn" class="small-btn danger">Reiniciar</button>
+        </div>
+      </header>
+
+      <section class="board-wrap">
+        <img src="imagens/tabuleiro.png" class="board-image" alt="Tabuleiro DDS Tecnologia">
+        <div id="boardCells" class="board-cells"></div>
+        <div id="pawnLayer" class="pawn-layer"></div>
+        <button id="rollTriggerBtn" class="roll-trigger" aria-label="Abrir dado">🎲 RODAR DADO</button>
+        <div class="board-help-chip">🟠 Segurança &nbsp; 🟣 Diversidade &nbsp; ☢️ Reator &nbsp; 🏁 Casa 48</div>
+      </section>
+
+      <section class="game-info-bar">
+        <div class="info-status">
+          <div class="info-label">STATUS</div>
+          <div id="statusText" class="status-text">Pronto.</div>
+        </div>
+        <div class="info-history">
+          <div class="info-label">HISTÓRICO</div>
+          <div id="history" class="history"></div>
+        </div>
+        <div class="info-players">
+          <div class="info-label">JOGADORES</div>
+          <div id="scoreboard" class="scoreboard"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal temporário do dado -->
+  <div id="diceModal" class="dice-modal hidden">
+    <div class="dice-card">
+      <div class="dice-modal-title">🎲 SUA RODADA</div>
+      <div id="diceAnimationFace" class="dice-animation-face">⚀</div>
+      <div id="diceModalStatus" class="dice-modal-status">Rolando...</div>
+      <div id="diceResult" class="dice-result hidden">6</div>
+    </div>
+  </div>
+
+  <!-- Modal de perguntas -->
+  <div id="questionModal" class="modal hidden">
+    <div class="question-card">
+      <div class="question-top">
+        <span id="questionType" class="question-type">SEGURANÇA</span>
+        <span id="questionId" class="question-id">S01</span>
+      </div>
+      <h2 id="questionText">Pergunta</h2>
+      <div id="answerList" class="answer-list"></div>
+      <div id="questionResult" class="question-result hidden"></div>
+      <button id="questionContinueBtn" class="primary-btn hidden">CONTINUAR</button>
+    </div>
+  </div>
+
+  <audio id="gameMusic" loop preload="auto">
+    <source src="imagens/musica-jogo.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Tela de vitória -->
+  <div id="victoryScreen" class="victory-screen hidden" aria-live="polite">
+    <div class="victory-backdrop"></div>
+    <div class="victory-content">
+      <div class="victory-kicker">🏆 FIM DE JOGO</div>
+      <div class="victory-title"><span id="winnerName">Proguinho</span> venceu!</div>
+      <div class="victory-subtitle">Chegou primeiro à casa 48.</div>
+      <div class="victory-character-wrap">
+        <div class="victory-glow"></div>
+        <img id="winnerCharacter" class="victory-character" src="imagens/proguinho.png" alt="Personagem vencedor">
+      </div>
+      <div class="victory-message">Parabéns! Grande conquista com boas escolhas. 🎉</div>
+      <button id="newGameBtn" class="victory-button" type="button">NOVA PARTIDA</button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+V15: tela de vitória corrigida para funcionar como popup central de alto destaque. O bloco HTML da vitória é carregado antes do script.js, evitando referências nulas. Exibe personagem vencedor grande, nome dinâmico, mensagem e botão Nova Partida.

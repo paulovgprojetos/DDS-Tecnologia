@@ -1,0 +1,1 @@
+V17: adicionada a segunda abertura 'intro-proguinho.mp4'. A sequência agora é Intro.mp4 -> Abertura do Proguinho -> tela de seleção. O mesmo botão de som controla o vídeo atualmente ativo. O código tenta iniciar os dois vídeos com áudio automaticamente; se o navegador bloquear autoplay com som, a primeira interação desbloqueia o vídeo ativo.
