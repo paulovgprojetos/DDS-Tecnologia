@@ -1728,6 +1728,7 @@ const introVideo2 = document.getElementById("introVideo2");
 const setupScreen = document.getElementById("setupScreen");
 const gameScreen = document.getElementById("gameScreen");
 const gameMusic = document.getElementById("gameMusic");
+const victoryMusic = document.getElementById("victoryMusic");
 const introSoundBtn = document.getElementById("introSoundBtn");
 const skipIntroBtn = document.getElementById("skipIntroBtn");
 const rollTriggerBtn = document.getElementById("rollTriggerBtn");
@@ -2291,11 +2292,28 @@ function endGame(winner){
   addHistory(`🏆 ${winner.name} venceu a partida!`);
   renderAll();
 
+  // Victory sequence: stop the normal game soundtrack and play the
+  // supplied victory track, whose file already starts at original second 35.
+  try{
+    gameMusic.pause();
+    gameMusic.currentTime=0;
+  }catch(e){}
+
   if(victoryScreen){
     winnerName.textContent = winner.name;
     winnerCharacter.src = winner.char.img;
     winnerCharacter.alt = `${winner.name} vencedor`;
     victoryScreen.classList.remove("hidden");
+  }
+
+  if(victoryMusic){
+    try{
+      victoryMusic.pause();
+      victoryMusic.currentTime=0;
+      victoryMusic.volume=1;
+      const p=victoryMusic.play();
+      if(p && typeof p.catch === "function") p.catch(()=>{});
+    }catch(e){}
   }
 }
 
